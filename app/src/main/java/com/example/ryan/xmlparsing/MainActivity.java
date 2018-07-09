@@ -27,7 +27,11 @@ import javax.xml.xpath.XPathFactory;
 public class MainActivity extends AppCompatActivity {
     Button btn_search, btn_search_gbis;
     EditText ed_mStation_id;
-    private ListView mListView;
+    private ListView mListView_Stations;
+    private ListView mListView_Bus;
+
+    final StationAdapter mStationAdapter = new StationAdapter();
+    final RouteAdapter mRouteAdapter = new RouteAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         ed_mStation_id = findViewById(R.id.edit_mStationId);
         btn_search_gbis = findViewById(R.id.btn_search_gbis);
         btn_search = findViewById(R.id.btn_search);
-        mListView = findViewById(R.id.ListView_Stations);
+        mListView_Stations = findViewById(R.id.ListView_Stations);
 
         btn_search_gbis.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final MyAdapter mMyAdapter = new MyAdapter();
+
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
                     NodeList RegionNameList = (NodeList) xpath.evaluate("//busStationList/regionName", document, XPathConstants.NODESET);
                     NodeList StationIdList = (NodeList) xpath.evaluate("//busStationList/stationId", document, XPathConstants.NODESET);
                     for (int i = 0; i < StationNameList.getLength(); i++) {
-                        mMyAdapter.addItem(
+                        mStationAdapter.addItem(
                                 StationNameList.item(i).getTextContent(),
                                 RegionNameList.item(i).getTextContent() + "시",
                                 StationIdList.item(i).getTextContent()
                         );
                     }
 
-                    mListView.setAdapter(mMyAdapter);
+                    mListView_Stations.setAdapter(mStationAdapter);
 
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
@@ -87,27 +91,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView_Stations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedStationId = mMyAdapter.getItem(position).StationId;
-                String uri = "hhttp://openapi.gbis.go.kr/ws/rest/busstationservice/route?serviceKey=" +
+                mListView_Bus = findViewById(R.id.ListView_Stations);
+                String selectedStationId = mStationAdapter.getItem(position).StationId;
+                String uri = "http://openapi.gbis.go.kr/ws/rest/busstationservice/route?serviceKey=" +
                         "i%2FmgmkmoCSBv8EUR8Jv1%2FTOw767UUNZEI%2FSGQnCmnDSb4kM1Vty5Dsqlw%2Bcx%2B8o%2FtfNUzA7PNyaMnqVHCMqD8A%3D%3D&" +
                         "stationId=" + selectedStationId;
                 try {
                     Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(uri);
                     XPath xpath = XPathFactory.newInstance().newXPath();
-                    NodeList routeIdList = (NodeList) xpath.evaluate("//busRouteList/routeId", document, XPathConstants.NODESET);
-                    NodeList busNumberList = (NodeList) xpath.evaluate("//busRouteList/routeName", document, XPathConstants.NODESET);
+                    final NodeList routeIdList = (NodeList) xpath.evaluate("//busRouteList/routeId", document, XPathConstants.NODESET);
+                    final NodeList busNumberList = (NodeList) xpath.evaluate("//busRouteList/routeName", document, XPathConstants.NODESET);
                     NodeList busTypeList = (NodeList) xpath.evaluate("//busRouteList/routeTypeName", document, XPathConstants.NODESET);
 
                     for (int i = 0; i < routeIdList.getLength(); i++) {
-                        mMyAdapter.addItem(
+                        mRouteAdapter.addItem(
                                 routeIdList.item(i).getTextContent(),
-                                busNumberList.item(i).getTextContent() + "시",
+                                busNumberList.item(i).getTextContent(),
                                 busTypeList.item(i).getTextContent()
                         );
                     }
+                    mListView_Bus.setAdapter(mRouteAdapter);
+                    mListView_Bus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent resultIntent = new Intent(getApplicationContext(),RouteListActivity.class);
+                            resultIntent.putExtra("routeId",mRouteAdapter.getItem(position).routeId);
+                            resultIntent.putExtra("busNumber",mRouteAdapter.getItem(position).busNumber);
+                            startActivity(resultIntent);
+                        }
+                    });
+
+
                 } catch (SAXException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -117,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (XPathExpressionException e) {
                     e.printStackTrace();
                 }
-                XPath xpath = XPathFactory.newInstance().newXPath();
 
 
             }

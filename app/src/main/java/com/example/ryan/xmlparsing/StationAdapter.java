@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter {
+public class StationAdapter extends BaseAdapter {
     private ArrayList<StationInfo> mItems = new ArrayList<>();
 
     @Override
@@ -51,9 +51,10 @@ public class MyAdapter extends BaseAdapter {
         /* (위젯에 대한 이벤트리스너를 지정하고 싶다면 여기에 작성하면된다..)  */
         return convertView;
     }
+
     public void addItem(String StationName, String RegionName, String StationId) {
 
-        StationInfo mItem = new StationInfo(StationName,RegionName, StationId);
+        StationInfo mItem = new StationInfo(StationName, RegionName, StationId);
 
         /* mItems에 MyItem을 추가한다. */
         mItems.add(mItem);

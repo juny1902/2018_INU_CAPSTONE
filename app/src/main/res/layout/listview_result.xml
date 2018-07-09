@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp">
+
+    <TextView
+        android:text="1"
+        android:gravity="center"
+        android:id="@+id/tv_sequence_number"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:text="시험용 정류장 이름"
+        android:gravity="center"
+        android:id="@+id/tv_station_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="1" />
+
+
+        <ImageView
+            android:id="@+id/im_current_bus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_busPlateNumber"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="52소0749" />
+
+</LinearLayout>

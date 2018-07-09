@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CustomWebView" />
+        <activity android:name=".RouteListActivity" />
     </application>
 
 </manifest>
