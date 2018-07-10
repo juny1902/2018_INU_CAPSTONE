@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -102,10 +101,13 @@ public class RouteActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+
         mListView_Route.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent resultIntent = new Intent(getApplicationContext(), RouteListActivity.class);
+                Intent resultIntent = new Intent(getApplicationContext(), ResultActivity.class);
+                resultIntent.putExtra("sel_stationId",mStationId);
                 resultIntent.putExtra("routeId", mRouteAdapter.getItem(position).routeId);
                 resultIntent.putExtra("busNumber", mRouteAdapter.getItem(position).busNumber);
                 startActivity(resultIntent);
