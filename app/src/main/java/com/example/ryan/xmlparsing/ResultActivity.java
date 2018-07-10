@@ -29,6 +29,7 @@ public class ResultActivity extends AppCompatActivity {
     ResultStationAdapter mResultStationAdapter = new ResultStationAdapter();
     ResultRunningAdapter mResultRunningAdapter = new ResultRunningAdapter();
 
+
     class stationRunningBusList {
         String seq;
         String plateNumber;
@@ -56,6 +57,13 @@ public class ResultActivity extends AppCompatActivity {
         mListView = findViewById(R.id.ListView_Results);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+        // 타요 버튼
+        btn_ride.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         // 쿼리문 지정 (Route ID 이용)
         String uri_stations = "http://openapi.gbis.go.kr/ws/rest/busrouteservice/station?" +
                 "serviceKey=i%2FmgmkmoCSBv8EUR8Jv1%2FTOw767UUNZEI%2FSGQnCmnDSb4kM1Vty5Dsqlw%2Bcx%2B8o%2FtfNUzA7PNyaMnqVHCMqD8A%3D%3D&" +
@@ -78,6 +86,13 @@ public class ResultActivity extends AppCompatActivity {
                         stationNameList.item(i).getTextContent(),
                         stationSeqList.item(i).getTextContent()
                 );
+
+            }
+            for (int i = 0; i < stationNameList.getLength(); i++) {
+                if(stationIdList.item(i).getTextContent().equals(sel_stationId)){
+                    mResultStationAdapter.setBoldStation(Integer.parseInt(stationSeqList.item(i).getTextContent()));
+
+                }
             }
 
         } catch (SAXException e) {

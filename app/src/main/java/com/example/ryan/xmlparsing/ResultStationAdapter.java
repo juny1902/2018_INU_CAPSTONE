@@ -1,12 +1,14 @@
 package com.example.ryan.xmlparsing;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,9 @@ public class ResultStationAdapter extends BaseAdapter {
         TextView tv_station_name = convertView.findViewById(R.id.tv_station_name);
         TextView tv_sequence_number = convertView.findViewById(R.id.tv_sequence_number);
         ImageView im_current_bus = convertView.findViewById(R.id.im_current_bus);
-
+        if(mItems.get(position).isSelected){
+            tv_station_name.setTextColor(Color.RED);
+        }
         if(mItems.get(position).visibility){
             im_current_bus.setVisibility(View.VISIBLE);
             tv_plateNumber.setVisibility(View.VISIBLE);
@@ -65,6 +69,10 @@ public class ResultStationAdapter extends BaseAdapter {
     public void setBusExists(int seqNum, String plateNumber, boolean visibility){
         mItems.get(seqNum-1).visibility = visibility;
         mItems.get(seqNum-1).currentPlateNumber = plateNumber;
+    }
+
+    public void setBoldStation(int seqNum){
+        mItems.get(seqNum-1).isSelected = true;
     }
 
     public void addItem(String stationId, String stationName, String stationSeq) {

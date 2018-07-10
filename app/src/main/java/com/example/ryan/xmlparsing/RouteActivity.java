@@ -107,7 +107,7 @@ public class RouteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent resultIntent = new Intent(getApplicationContext(), ResultActivity.class);
-                resultIntent.putExtra("sel_stationId",mStationId);
+                resultIntent.putExtra("sel_stationId",StationId);
                 resultIntent.putExtra("routeId", mRouteAdapter.getItem(position).routeId);
                 resultIntent.putExtra("busNumber", mRouteAdapter.getItem(position).busNumber);
                 startActivity(resultIntent);
