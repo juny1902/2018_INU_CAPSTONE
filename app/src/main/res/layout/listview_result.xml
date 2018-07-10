@@ -39,7 +39,7 @@
         android:layout_height="30dp"
         android:layout_weight="2"
         android:gravity="center"
-        android:text="52소0749"
+        android:text="52소0742"
         android:visibility="invisible" />
 
 </LinearLayout>
