@@ -48,6 +48,7 @@ public class ResultActivity extends AppCompatActivity {
         Intent curIntent = getIntent();
         final String routeId = curIntent.getStringExtra("routeId");
         final String busNumber = curIntent.getStringExtra("busNumber");
+        final String sel_stationId = curIntent.getStringExtra("sel_stationId");
 
         // 뷰와 객체 연결
         btn_ride = findViewById(R.id.btn_ride);
