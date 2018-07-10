@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".CustomWebView" />
         <activity android:name=".RouteListActivity" />
+        <activity android:name=".StationActivity" />
+        <activity android:name=".RouteActivity"></activity>
     </application>
 
 </manifest>

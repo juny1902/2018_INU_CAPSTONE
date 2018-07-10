@@ -60,4 +60,8 @@ public class StationAdapter extends BaseAdapter {
         mItems.add(mItem);
 
     }
+
+    public void clear(){
+        this.mItems.clear();
+    }
 }

@@ -59,4 +59,8 @@ public class RouteAdapter extends BaseAdapter {
         mItems.add(mItem);
 
     }
+
+    public void clear(){
+        this.mItems.clear();
+    }
 }
