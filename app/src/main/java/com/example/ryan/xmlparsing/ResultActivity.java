@@ -61,6 +61,7 @@ public class ResultActivity extends AppCompatActivity {
         btn_ride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recreate();
             }
         });
 
