@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="50dp">
-
+    <RadioButton
+        android:id="@+id/rd_bus_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_sequence_number"
         android:layout_width="30dp"

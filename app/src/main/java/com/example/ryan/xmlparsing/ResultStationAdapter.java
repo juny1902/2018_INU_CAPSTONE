@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Checkable;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,12 +16,14 @@ import java.util.ArrayList;
 
 public class ResultStationAdapter extends BaseAdapter {
     private ArrayList<ResultStationInfo> mItems = new ArrayList<>();
+    CustomViewHolder holder;
 
     public class CustomViewHolder {
         public TextView tv_plateNumber;
         public TextView tv_station_name;
         public TextView tv_sequence_number;
         public ImageView im_current_bus;
+        public Checkable checkable;
     }
 
     @Override
@@ -41,9 +45,7 @@ public class ResultStationAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Context context = parent.getContext();
 
-        CustomViewHolder holder;
         holder = new CustomViewHolder();
-        /* 'listview_custom' Layout을 inflate하여 convertView 참조 획득 */
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_result, parent, false);
@@ -55,8 +57,7 @@ public class ResultStationAdapter extends BaseAdapter {
         holder.tv_station_name = convertView.findViewById(R.id.tv_station_name);
         holder.tv_sequence_number = convertView.findViewById(R.id.tv_sequence_number);
         holder.im_current_bus = convertView.findViewById(R.id.im_current_bus);
-
-
+        holder.checkable = convertView.findViewById(R.id.rd_bus_check);
 
         if(mItems.get(position).isSelected){
             convertView.setBackgroundColor(Color.GRAY);
