@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    android:gravity="center">
+
     <RadioButton
         android:id="@+id/rd_bus_check"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:clickable="false"
+        android:focusable="false" />
+
     <TextView
         android:id="@+id/tv_sequence_number"
         android:layout_width="30dp"
@@ -35,11 +40,11 @@
     <TextView
         android:id="@+id/tv_busPlateNumber"
         android:layout_width="match_parent"
-        android:textSize="6pt"
         android:layout_height="30dp"
         android:layout_weight="2"
         android:gravity="center"
         android:text="52소0742"
+        android:textSize="6pt"
         android:visibility="invisible" />
 
 </LinearLayout>

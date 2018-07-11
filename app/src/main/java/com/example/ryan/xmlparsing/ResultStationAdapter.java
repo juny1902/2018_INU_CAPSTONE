@@ -18,12 +18,22 @@ public class ResultStationAdapter extends BaseAdapter {
     private ArrayList<ResultStationInfo> mItems = new ArrayList<>();
     CustomViewHolder holder;
 
+    int selectedIndex = -1;
+
+    public void setSelectedIndex(int index){
+        selectedIndex = index;
+    }
+
+    public int getSelectedIndex(){
+        return selectedIndex;
+    }
+
     public class CustomViewHolder {
         public TextView tv_plateNumber;
         public TextView tv_station_name;
         public TextView tv_sequence_number;
         public ImageView im_current_bus;
-        public Checkable checkable;
+        public RadioButton rd_selected_bus;
     }
 
     @Override
@@ -57,7 +67,13 @@ public class ResultStationAdapter extends BaseAdapter {
         holder.tv_station_name = convertView.findViewById(R.id.tv_station_name);
         holder.tv_sequence_number = convertView.findViewById(R.id.tv_sequence_number);
         holder.im_current_bus = convertView.findViewById(R.id.im_current_bus);
-        holder.checkable = convertView.findViewById(R.id.rd_bus_check);
+        holder.rd_selected_bus = convertView.findViewById(R.id.rd_bus_check);
+
+        if(selectedIndex == position){
+            holder.rd_selected_bus.setChecked(true);
+        }else{
+            holder.rd_selected_bus.setChecked(false);
+        }
 
         if(mItems.get(position).isSelected){
             convertView.setBackgroundColor(Color.GRAY);

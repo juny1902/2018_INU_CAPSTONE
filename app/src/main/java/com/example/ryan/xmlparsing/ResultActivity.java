@@ -28,7 +28,7 @@ public class ResultActivity extends AppCompatActivity {
     Button btn_ride, btn_off;
     ResultStationAdapter mResultStationAdapter = new ResultStationAdapter();
     ResultRunningAdapter mResultRunningAdapter = new ResultRunningAdapter();
-
+    int curStationSeq = 0;
 
     class stationRunningBusList {
         String seq;
@@ -56,12 +56,47 @@ public class ResultActivity extends AppCompatActivity {
         btn_off = findViewById(R.id.btn_off);
         mListView = findViewById(R.id.ListView_Results);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mResultStationAdapter.setSelectedIndex(position);
+                mResultStationAdapter.notifyDataSetChanged();
+            }
+        });
 
         // 타요 버튼
         btn_ride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recreate();
+                int selStationSeq = mResultStationAdapter.getSelectedIndex() + 1;
+                String selPlateNo = "";
+                if (selStationSeq >= curStationSeq) {
+                    Toast.makeText(ResultActivity.this,
+                            String.format("선택한 정류장(%d)이 현재 정류장(%d)보다 다음에 있습니다.", selStationSeq, curStationSeq),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+
+                    for (int i = 0; i < mResultRunningAdapter.getCount(); i++) {
+                        if (mResultRunningAdapter.getItem(i).mStationSeq.equals(String.valueOf(selStationSeq))) {
+                            selPlateNo = mResultRunningAdapter.getItem(i).mPlateNo;
+                            break;
+                        }
+                    }
+                    if (selPlateNo.isEmpty()) {
+                        Toast.makeText(ResultActivity.this, "해당 위치에 버스가 없습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ResultActivity.this,
+                                String.format("현재정류장:%d\n노선번호:%s\n번호판:%s.", curStationSeq, routeId, selPlateNo),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        btn_off.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -90,7 +125,8 @@ public class ResultActivity extends AppCompatActivity {
 
             }
             for (int i = 0; i < stationNameList.getLength(); i++) {
-                if(stationIdList.item(i).getTextContent().equals(sel_stationId)){
+                if (stationIdList.item(i).getTextContent().equals(sel_stationId)) {
+                    curStationSeq = Integer.parseInt(stationSeqList.item(i).getTextContent());
                     mResultStationAdapter.setBoldStation(Integer.parseInt(stationSeqList.item(i).getTextContent()));
 
                 }
@@ -106,17 +142,6 @@ public class ResultActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = String.format("버스번호:%s\n노선번호:%s\n고유번호:%s\n이름:%s\n순서:%s",
-                        busNumber, routeId,
-                        mResultStationAdapter.getItem(position).stationId,
-                        mResultStationAdapter.getItem(position).stationName,
-                        mResultStationAdapter.getItem(position).stationSeq);
-                Toast.makeText(ResultActivity.this, text, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         String uri_runnings = "http://openapi.gbis.go.kr/ws/rest/buslocationservice?serviceKey=" +
                 "i%2FmgmkmoCSBv8EUR8Jv1%2FTOw767UUNZEI%2FSGQnCmnDSb4kM1Vty5Dsqlw%2Bcx%2B8o%2FtfNUzA7PNyaMnqVHCMqD8A%3D%3D&" +
@@ -158,7 +183,6 @@ public class ResultActivity extends AppCompatActivity {
         } catch (XPathExpressionException e) {
             e.printStackTrace();
         }
-
 
     }
 }
