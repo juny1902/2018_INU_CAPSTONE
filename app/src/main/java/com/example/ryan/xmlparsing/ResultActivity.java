@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -24,8 +28,13 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 public class ResultActivity extends AppCompatActivity {
+    final String broker_address = "iot.eclipse.org";
+    final String broker_port = "1883";
+
+
     ListView mListView;
     Button btn_ride, btn_off;
+    ImageButton btn_refresh_bus, btn_back_from_result;
     ResultStationAdapter mResultStationAdapter = new ResultStationAdapter();
     ResultRunningAdapter mResultRunningAdapter = new ResultRunningAdapter();
     int curStationSeq = 0;
@@ -54,6 +63,8 @@ public class ResultActivity extends AppCompatActivity {
         // 뷰와 객체 연결
         btn_ride = findViewById(R.id.btn_ride);
         btn_off = findViewById(R.id.btn_off);
+        btn_refresh_bus = findViewById(R.id.btn_refresh_bus);
+        btn_back_from_result = findViewById(R.id.btn_back_from_result);
         mListView = findViewById(R.id.ListView_Results);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,6 +72,18 @@ public class ResultActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mResultStationAdapter.setSelectedIndex(position);
                 mResultStationAdapter.notifyDataSetChanged();
+            }
+        });
+        btn_back_from_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        btn_refresh_bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
             }
         });
 
@@ -85,9 +108,14 @@ public class ResultActivity extends AppCompatActivity {
                     if (selPlateNo.isEmpty()) {
                         Toast.makeText(ResultActivity.this, "해당 위치에 버스가 없습니다.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ResultActivity.this,
-                                String.format("현재정류장:%d\n노선번호:%s\n번호판:%s.", curStationSeq, routeId, selPlateNo),
-                                Toast.LENGTH_SHORT).show();
+                        try {
+                            MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
+                            client.connect();
+                            String msg = "ON&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
+                            client.publish(selPlateNo, msg.getBytes(), 0, false);
+                        } catch (MqttException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -96,6 +124,7 @@ public class ResultActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
 
             }
         });
