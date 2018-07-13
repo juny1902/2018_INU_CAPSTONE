@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import org.w3c.dom.Document;
@@ -25,7 +26,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 public class StationActivity extends AppCompatActivity {
-    Button btn_station_search, btn_search_gbis; //첫 화면의 검색버튼, 정류소번호 찾기 버튼 ( * 정류소번호 찾기 사이트 : www.gbis.go.kr )
+    ImageButton btn_station_search, btn_search_gbis; //첫 화면의 검색버튼, 정류소번호 찾기 버튼 ( * 정류소번호 찾기 사이트 : www.gbis.go.kr )
     EditText ed_mStation_id;  // 정류소번호를 입력하는 텍스트박스
     private ListView mListView_Stations; // 입력한 정류소번호에 대한 정류소를 보여주는 리스트뷰
 

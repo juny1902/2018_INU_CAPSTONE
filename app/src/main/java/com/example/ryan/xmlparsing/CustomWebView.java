@@ -7,9 +7,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class CustomWebView extends AppCompatActivity {
-    Button btn_close_GBIS;
+    ImageButton btn_close_GBIS;
     WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

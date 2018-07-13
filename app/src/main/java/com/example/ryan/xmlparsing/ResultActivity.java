@@ -28,7 +28,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 public class ResultActivity extends AppCompatActivity {
-    final String broker_address = "tcp://iot.eclipse.org";
+    final String broker_address = "tcp://192.168.0.28";
     final String broker_port = "1883";
 
 
@@ -84,6 +84,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recreate();
+                Toast.makeText(ResultActivity.this, "버스운행정보를 갱신합니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -111,8 +112,8 @@ public class ResultActivity extends AppCompatActivity {
                         try {
                             MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
                             client.connect();
-                            String msg = "ON&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
-                            client.publish(selPlateNo, msg.getBytes(), 0, false);
+                            String msg =  "geton&"+ curStationSeq + "&" + routeId + "&" + selPlateNo;
+                            client.publish("bus_request", msg.getBytes(), 0, false);
                             Toast.makeText(ResultActivity.this, "송신 메시지 : \n" + msg, Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
                             e.printStackTrace();
@@ -146,8 +147,8 @@ public class ResultActivity extends AppCompatActivity {
                         try {
                             MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
                             client.connect();
-                            String msg = "OFF&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
-                            client.publish(selPlateNo, msg.getBytes(), 0, false);
+                            String msg = "getoff&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
+                            client.publish("bus_request", msg.getBytes(), 0, false);
                             Toast.makeText(ResultActivity.this, "송신 메시지 : \n" + msg, Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
                             e.printStackTrace();

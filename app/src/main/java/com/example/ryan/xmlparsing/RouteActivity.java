@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import org.w3c.dom.Document;
@@ -27,8 +28,7 @@ public class RouteActivity extends AppCompatActivity {
     private ListView mListView_Route;  // 정류소 중 내리고자하는 정류소를 클릭하고, 그 정류소를 운행하는 모든 버스들이 로드되는 리스트뷰
     final RouteAdapter mRouteAdapter = new RouteAdapter(); // 위의 mListView_Bus 데이터를 받아오기 위한 어뎁터 선언
     EditText ed_mStation_routes;
-    Button btn_search_gbis_routes;
-    Button btn_search_routes;
+    ImageButton btn_search_gbis_routes, btn_search_routes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

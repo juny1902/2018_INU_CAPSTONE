@@ -2,6 +2,7 @@ package com.example.ryan.xmlparsing;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,9 +77,21 @@ public class ResultStationAdapter extends BaseAdapter {
         }
 
         if(mItems.get(position).isSelected){
-            convertView.setBackgroundColor(Color.GRAY);
+            convertView.setBackgroundColor(Color.parseColor("#554299E6"));
+            holder.tv_station_name.setTextColor(Color.parseColor("#0C73CF"));
+            holder.tv_sequence_number.setTextColor(Color.parseColor("#0C73CF"));
+            holder.tv_plateNumber.setTextColor(Color.parseColor("#0C73CF"));
+            holder.tv_station_name.setPaintFlags(holder.tv_station_name.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+            holder.tv_sequence_number.setPaintFlags(holder.tv_sequence_number.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+            holder.tv_plateNumber.setPaintFlags(holder.tv_plateNumber.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         }else{
             convertView.setBackgroundColor(Color.TRANSPARENT);
+            holder.tv_station_name.setTextColor(Color.GRAY);
+            holder.tv_sequence_number.setTextColor(Color.GRAY);
+            holder.tv_plateNumber.setTextColor(Color.GRAY);
+            holder.tv_station_name.setPaintFlags(holder.tv_station_name.getPaintFlags() & ~Paint.FAKE_BOLD_TEXT_FLAG);
+            holder.tv_sequence_number.setPaintFlags(holder.tv_sequence_number.getPaintFlags() & ~Paint.FAKE_BOLD_TEXT_FLAG);
+            holder.tv_plateNumber.setPaintFlags(holder.tv_plateNumber.getPaintFlags() & ~Paint.FAKE_BOLD_TEXT_FLAG);
         }
         if(mItems.get(position).visibility){
             holder.im_current_bus.setVisibility(View.VISIBLE);

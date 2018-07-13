@@ -6,14 +6,17 @@
 
     <TextView
         android:id="@+id/tv_stationNameList"
+        android:textSize="8pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:textSize="8pt"
         android:id="@+id/tv_regionNameList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_distinctCodeList"
+        android:textSize="8pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
