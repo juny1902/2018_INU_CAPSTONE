@@ -5,6 +5,7 @@
     android:gravity="center">
 
     <RadioButton
+        android:backgroundTint="@color/colorPrimaryDark"
         android:id="@+id/rd_bus_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
         android:layout_height="30dp"
         android:gravity="center"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/bus_5"
         android:visibility="invisible" />
 
     <TextView

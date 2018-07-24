@@ -37,7 +37,8 @@ public class StationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station);
-
+        Intent help = new Intent(getApplicationContext(), FirstHelp.class);
+        startActivity(help);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -111,6 +112,7 @@ public class StationActivity extends AppCompatActivity {
                 startActivityForResult(route_intent, 3000);
             }
         });
+
     }
 
     @Override

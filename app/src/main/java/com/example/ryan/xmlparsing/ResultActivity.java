@@ -28,7 +28,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 public class ResultActivity extends AppCompatActivity {
-    final String broker_address = "tcp://192.168.0.28";
+    final String broker_address = "tcp://iot.eclipse.org";
     final String broker_port = "1883";
 
 
@@ -96,7 +96,7 @@ public class ResultActivity extends AppCompatActivity {
                 String selPlateNo = "";
                 if (selStationSeq >= curStationSeq) {
                     Toast.makeText(ResultActivity.this,
-                            String.format("선택한 정류장(%d)이 현재 정류장(%d)보다 다음에 있습니다.", selStationSeq, curStationSeq),
+                            String.format("선택한 정류장이 탑승할 정류장보다 다음에 있습니다.", selStationSeq, curStationSeq),
                             Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -114,7 +114,7 @@ public class ResultActivity extends AppCompatActivity {
                             client.connect();
                             String msg =  "geton&"+ curStationSeq + "&" + routeId + "&" + selPlateNo;
                             client.publish("bus_request", msg.getBytes(), 0, false);
-                            Toast.makeText(ResultActivity.this, "송신 메시지 : \n" + msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ResultActivity.this, selPlateNo + "에 타요 요청을 완료하였습니다.", Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
                             e.printStackTrace();
                         }
@@ -131,7 +131,7 @@ public class ResultActivity extends AppCompatActivity {
                 String selPlateNo = "";
                 if (selStationSeq >= curStationSeq) {
                     Toast.makeText(ResultActivity.this,
-                            String.format("선택한 정류장(%d)이 현재 정류장(%d)보다 다음에 있습니다.", selStationSeq, curStationSeq),
+                            String.format("선택한 정류장이 내릴 정류장보다 다음에 있습니다.", selStationSeq, curStationSeq),
                             Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -149,7 +149,7 @@ public class ResultActivity extends AppCompatActivity {
                             client.connect();
                             String msg = "getoff&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
                             client.publish("bus_request", msg.getBytes(), 0, false);
-                            Toast.makeText(ResultActivity.this, "송신 메시지 : \n" + msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ResultActivity.this, selPlateNo + "에 내려요 요청을 완료하였습니다.", Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
                             e.printStackTrace();
                         }
