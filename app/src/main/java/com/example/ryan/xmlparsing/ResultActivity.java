@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,10 +35,12 @@ public class ResultActivity extends AppCompatActivity {
 
     ListView mListView;
     Button btn_ride, btn_off;
+    CheckBox chk_Disabled;
     ImageButton btn_refresh_bus, btn_back_from_result;
     ResultStationAdapter mResultStationAdapter = new ResultStationAdapter();
     ResultRunningAdapter mResultRunningAdapter = new ResultRunningAdapter();
     int curStationSeq = 0;
+    String disabled = "0";
 
     class stationRunningBusList {
         String seq;
@@ -60,9 +63,13 @@ public class ResultActivity extends AppCompatActivity {
         final String busNumber = curIntent.getStringExtra("busNumber");
         final String sel_stationId = curIntent.getStringExtra("sel_stationId");
 
+
         // 뷰와 객체 연결
         btn_ride = findViewById(R.id.btn_ride);
         btn_off = findViewById(R.id.btn_off);
+
+        chk_Disabled = findViewById(R.id.chk_Disabled);
+
         btn_refresh_bus = findViewById(R.id.btn_refresh_bus);
         btn_back_from_result = findViewById(R.id.btn_back_from_result);
         mListView = findViewById(R.id.ListView_Results);
@@ -88,6 +95,7 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+
         // 타요 버튼
         btn_ride.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +120,15 @@ public class ResultActivity extends AppCompatActivity {
                         try {
                             MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
                             client.connect();
+
+                            if(chk_Disabled.isChecked() == true) {
+                                disabled = "1";
+                            } else if(chk_Disabled.isChecked() == false) {
+                                disabled = "0";
+                            }
                             String msg =  "geton&"+ curStationSeq + "&" + routeId + "&" + selPlateNo;
+                            msg += "&"+ disabled;
+
                             client.publish("bus_request", msg.getBytes(), 0, false);
                             Toast.makeText(ResultActivity.this, selPlateNo + "에 타요 요청을 완료하였습니다.", Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
@@ -147,7 +163,16 @@ public class ResultActivity extends AppCompatActivity {
                         try {
                             MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
                             client.connect();
+
+                            if(chk_Disabled.isChecked() == true) {
+                                disabled = "1";
+                            } else if(chk_Disabled.isChecked() == false) {
+                                disabled = "0";
+                            }
+
                             String msg = "getoff&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
+                            msg += "&"+ disabled;
+
                             client.publish("bus_request", msg.getBytes(), 0, false);
                             Toast.makeText(ResultActivity.this, selPlateNo + "에 내려요 요청을 완료하였습니다.", Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
