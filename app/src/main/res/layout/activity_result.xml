@@ -1,104 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
+
     android:orientation="vertical"
+
     tools:context=".ResultActivity">
 
+
+
     <android.support.constraint.ConstraintLayout
+
         android:layout_width="match_parent"
+
         android:layout_height="60dp"
+
         android:background="@color/colorPrimary">
 
+
+
         <ImageButton
+
             android:id="@+id/btn_back_from_result"
+
             android:layout_width="50dp"
+
             android:layout_height="50dp"
+
             android:layout_marginStart="8dp"
+
             android:background="#00FFFFFF"
+
             android:scaleType="fitCenter"
+
             android:scaleX="0.7"
+
             android:scaleY="0.7"
+
             android:src="@mipmap/left_arrow_png"
+
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <TextView
+
             android:id="@+id/textView"
+
             android:layout_width="wrap_content"
+
             android:layout_height="match_parent"
+
             android:gravity="center"
+
             android:text="버스 선택"
+
             android:textColor="@color/white"
+
             android:textSize="12pt"
+
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toStartOf="@+id/btn_refresh_bus"
+
             app:layout_constraintStart_toEndOf="@+id/btn_back_from_result"
+
             app:layout_constraintTop_toTopOf="parent" />
 
+
+
         <ImageButton
+
             android:id="@+id/btn_refresh_bus"
+
             android:layout_width="50dp"
+
             android:layout_height="50dp"
+
             android:layout_marginEnd="8dp"
+
             android:background="#00FFFFFF"
+
             android:scaleType="fitCenter"
+
             android:scaleX="0.8"
+
             android:scaleY="0.8"
+
             android:src="@mipmap/btn_refresh"
+
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </android.support.constraint.ConstraintLayout>
 
+
+
     <ListView
+
         android:id="@+id/ListView_Results"
+
         android:layout_width="match_parent"
-        android:layout_height="523dp"
+
+        android:layout_height="match_parent"
+
         android:layout_weight="1"
+
         android:choiceMode="singleChoice"
+
         android:descendantFocusability="beforeDescendants"></ListView>
+
 
     <CheckBox
         android:id="@+id/chk_Disabled"
-        android:layout_width="191dp"
-        android:layout_height="wrap_content"
-        android:text="장애인 / 임산부" />
-
+        android:text="도움이 필요해요"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <LinearLayout
+
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
-        android:layout_weight="4">
+
+        android:layout_weight="3">
+
+
 
         <Button
+
             android:id="@+id/btn_ride"
+
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
+
             android:layout_margin="5dp"
+
             android:layout_weight="1"
+
             android:background="@color/colorPrimary"
+
             android:text="타요"
+
             android:textColor="@color/white"
+
             android:textSize="16pt"
+
             android:textStyle="bold" />
 
+
+
         <Button
+
             android:id="@+id/btn_off"
+
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
+
             android:layout_margin="5dp"
+
             android:layout_weight="1"
+
             android:background="@color/colorPrimaryDark"
+
             android:text="내려요"
+
             android:textColor="@color/white"
+
             android:textSize="16pt"
+
             android:textStyle="bold" />
+
+
+
 
 
     </LinearLayout>
+
+
 
 </LinearLayout>
