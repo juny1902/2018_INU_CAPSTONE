@@ -1,4 +1,4 @@
-package com.example.ryan.xmlparsing;
+package com.brainyoung.ryan.rideoff;
 
 public class ResultStationInfo {
     String stationId; // 정류장 고유번호

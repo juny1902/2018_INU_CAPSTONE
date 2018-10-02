@@ -1,4 +1,4 @@
-package com.example.ryan.xmlparsing;
+package com.brainyoung.ryan.rideoff;
 
 public class ResultRunningInfo {
     String mPlateNo;

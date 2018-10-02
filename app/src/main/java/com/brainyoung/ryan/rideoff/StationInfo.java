@@ -1,4 +1,4 @@
-package com.example.ryan.xmlparsing;
+package com.brainyoung.ryan.rideoff;
 
 public class StationInfo {
     public String StationName; // 첫 화면에서 사용자가 모바일 정류장번호를 입력하여, 해당 모바일 정류소번호에따른 정류소 이름을 받아오기위한 변수

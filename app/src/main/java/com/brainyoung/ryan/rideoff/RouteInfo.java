@@ -1,4 +1,4 @@
-package com.example.ryan.xmlparsing;
+package com.brainyoung.ryan.rideoff;
 
 public class RouteInfo {
     public String routeId; // 특정 버스에 고유적으로 부여되는 노선아이디를 받아오기 위한 변수

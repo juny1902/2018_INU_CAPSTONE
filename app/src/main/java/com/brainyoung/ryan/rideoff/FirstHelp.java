@@ -1,4 +1,4 @@
-package com.example.ryan.xmlparsing;
+package com.brainyoung.ryan.rideoff;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
