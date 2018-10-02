@@ -38,6 +38,7 @@ public class RouteActivity extends AppCompatActivity {
         final Intent mIntent = getIntent();
         final String StationId = mIntent.getStringExtra("StationId");
         final String mStationId = mIntent.getStringExtra("mStationId");
+        final String StationName = mIntent.getStringExtra("StationName");
         mListView_Route = findViewById(R.id.ListView_Routes);
         btn_search_gbis_routes = findViewById(R.id.btn_search_gbis_routes);
         btn_search_routes = findViewById(R.id.btn_search_routes);
@@ -110,6 +111,7 @@ public class RouteActivity extends AppCompatActivity {
                 resultIntent.putExtra("sel_stationId",StationId);
                 resultIntent.putExtra("routeId", mRouteAdapter.getItem(position).routeId);
                 resultIntent.putExtra("busNumber", mRouteAdapter.getItem(position).busNumber);
+                resultIntent.putExtra("sel_stationName",StationName);
                 startActivity(resultIntent);
             }
         });

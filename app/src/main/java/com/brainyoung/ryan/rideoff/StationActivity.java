@@ -107,6 +107,7 @@ public class StationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent route_intent = new Intent(getApplicationContext(), RouteActivity.class);
+                route_intent.putExtra("StationName",mStationAdapter.getItem(position).StationName);
                 route_intent.putExtra("StationId", mStationAdapter.getItem(position).StationId);
                 route_intent.putExtra("mStationId", ed_mStation_id.getText().toString());
                 startActivityForResult(route_intent, 3000);

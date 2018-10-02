@@ -3,6 +3,7 @@ package com.brainyoung.ryan.rideoff;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -40,7 +41,7 @@ public class ResultActivity extends AppCompatActivity {
     ResultStationAdapter mResultStationAdapter = new ResultStationAdapter();
     ResultRunningAdapter mResultRunningAdapter = new ResultRunningAdapter();
     int curStationSeq = 0;
-    String disabled = "0";
+
 
     class stationRunningBusList {
         String seq;
@@ -62,7 +63,7 @@ public class ResultActivity extends AppCompatActivity {
         final String routeId = curIntent.getStringExtra("routeId");
         final String busNumber = curIntent.getStringExtra("busNumber");
         final String sel_stationId = curIntent.getStringExtra("sel_stationId");
-
+        final String sel_stationName = curIntent.getStringExtra("sel_stationName");
 
         // 뷰와 객체 연결
         btn_ride = findViewById(R.id.btn_ride);
@@ -120,16 +121,16 @@ public class ResultActivity extends AppCompatActivity {
                         try {
                             MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
                             client.connect();
-
+                            String disabled = "false";
                             if(chk_Disabled.isChecked() == true) {
-                                disabled = "1";
+                                disabled = "true";
                             } else if(chk_Disabled.isChecked() == false) {
-                                disabled = "0";
+                                disabled = "false";
                             }
-                            String msg =  "geton&"+ curStationSeq + "&" + routeId + "&" + selPlateNo;
-                            msg += "&"+ disabled;
+                            String msg =  "geton&"+ curStationSeq + "&" + routeId + "&" + selPlateNo + "&" + busNumber + "&" + sel_stationName +"&" + disabled;
 
                             client.publish("bus_request", msg.getBytes(), 0, false);
+                            Log.d(this.getClass().getName(),msg);
                             Toast.makeText(ResultActivity.this, selPlateNo + "에 타요 요청을 완료하였습니다.", Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
                             e.printStackTrace();
@@ -164,16 +165,17 @@ public class ResultActivity extends AppCompatActivity {
                             MqttClient client = new MqttClient(broker_address + ":" + broker_port, MqttClient.generateClientId(), new MemoryPersistence());
                             client.connect();
 
+                            String disabled = "false";
                             if(chk_Disabled.isChecked() == true) {
-                                disabled = "1";
+                                disabled = "true";
                             } else if(chk_Disabled.isChecked() == false) {
-                                disabled = "0";
+                                disabled = "false";
                             }
 
-                            String msg = "getoff&" + curStationSeq + "&" + routeId + "&" + selPlateNo;
-                            msg += "&"+ disabled;
+                            String msg =  "getoff&"+ curStationSeq + "&" + routeId + "&" + selPlateNo + "&" + busNumber + "&" + sel_stationName +"&" + disabled;
 
                             client.publish("bus_request", msg.getBytes(), 0, false);
+                            Log.d(this.getClass().getName(),msg);
                             Toast.makeText(ResultActivity.this, selPlateNo + "에 내려요 요청을 완료하였습니다.", Toast.LENGTH_SHORT).show();
                         } catch (MqttException e) {
                             e.printStackTrace();
